@@ -31,7 +31,7 @@ DirectShow is an older Windows camera API that has been around since the late
 
 Modern applications like Microsoft Teams, Zoom, and Slack have moved to the
 newer **WinRT** camera API introduced with Windows 10. WinRT only recognises
-cameras that are registered as proper Windows camera devices — it completely
+cameras that are registered as proper Windows camera devices and it completely
 ignores DirectShow-only filters like the one Broadcast 1.4.x installs.
 
 The result: Teams cannot see NVIDIA Broadcast as a camera source at all.
@@ -43,7 +43,7 @@ WinRT-compatible Windows camera device. Every modern app can then see it.
 So the chain looks like this:
 
 ```
-Logitech BRIO (physical camera)
+Physical Camera (IE: Logitech BRIO)
         ↓
 NVIDIA Broadcast 1.4.x  (AI effects: background blur, replacement, etc.)
         ↓  [DirectShow]
@@ -123,10 +123,11 @@ Do this after launching OBS for the first time via the tray:
 
 1. In OBS, click **+** under **Sources**
 2. Choose **Video Capture Device**
-3. Name it `Broadcast Camera` → click OK
-4. In the **Device** dropdown select **Camera (NVIDIA Broadcast)**
-5. Click OK — you should see your Broadcast feed with effects in the OBS preview
-6. Click **Start Virtual Camera** in the Controls panel (bottom right)
+3. Name it `Nvidia Broadcast Camera`
+4. Click **OK**
+5. In the **Device** dropdown select **Camera (NVIDIA Broadcast)**
+6. Click OK (You should see your Broadcast feed with effects in the OBS preview)
+7. Click **Start Virtual Camera** in the Controls panel (bottom right)
 
 OBS remembers this configuration. You only need to do this once.
 
@@ -139,7 +140,7 @@ OBS remembers this configuration. You only need to do this once.
 3. You should see your Broadcast feed with effects applied
 
 > **Note:** Teams must be started *after* OBS Virtual Camera is running or it
-> will not see it. The tray app handles this automatically — it closes Teams
+> will not see it. The tray app handles this automatically, and it closes Teams
 > before starting Broadcast and OBS, then reminds you to reopen Teams when
 > everything is ready.
 
