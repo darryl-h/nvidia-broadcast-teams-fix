@@ -170,19 +170,30 @@ Right-click the tray icon for the menu:
 
 ### Timing
 
+These two settings exist because NVIDIA Broadcast has no option to disable its
+update checker, and it launches the popup asynchronously after startup — meaning
+we have to wait for it to appear before we can kill it. If you see the popup
+slipping through, increase the wait time.
+
 | Setting | Default | Description |
 |---------|---------|-------------|
-| Teams Process Name | `ms-teams` | Process name fragment used to detect and close Teams. Check Task Manager if Teams isn't being detected. |
-| Broadcast Init Wait | `5` | Seconds to wait after Broadcast starts before launching OBS. Increase if OBS doesn't detect the virtual camera. |
-| Update Popup Kill Wait | `8` | Seconds to wait after Broadcast starts before killing the update nag popup. Increase if the popup still appears. |
+| Broadcast Init Wait | `5` | How long to wait (seconds) after Broadcast starts before launching OBS. OBS needs to find the Broadcast virtual camera at startup — if OBS launches too fast, it won't see it. Increase this if OBS shows a blank camera source. |
+| Nvidia Broadcast Update Popup Wait | `8` | How long to wait (seconds) after Broadcast starts before killing the update nag popup. The popup appears a few seconds after Broadcast launches, so this needs to be long enough to let it appear before we kill it. If the popup is still slipping through, increase this value. |
 
 ### Process Names
 
+These settings tell the app which processes to look for when detecting, closing,
+or stopping each application. The values are fragments — "Broadcast" will match
+any process whose name contains the word "Broadcast". If an app isn't being
+detected or stopped correctly, open Task Manager, find the exact process name,
+and add it (or a unique fragment of it) to the relevant field.
+
 | Setting | Default | Description |
 |---------|---------|-------------|
-| Update Popup Process Names | `NvBroadcastInstaller, OTAUtility, NvBroadcastInstallerOTA` | Process name fragments to kill when suppressing the update popup. If the popup still appears, open Task Manager while it is visible and add the process name here. |
-| Broadcast Stop Processes | `Broadcast, NvVirtual, NvAFX` | Process name fragments killed when stopping Broadcast |
-| OBS Stop Processes | `obs` | Process name fragments killed when stopping OBS |
+| Teams Process Name | `ms-teams` | Fragment used to detect whether Teams is running and to close it before starting Broadcast. If Teams isn't being closed, check its exact process name in Task Manager. |
+| Update Popup Process Names | `NvBroadcastInstaller, OTAUtility, NvBroadcastInstallerOTA` | Comma-separated list of process name fragments to kill when suppressing the NVIDIA Broadcast update popup. If the popup still appears, open Task Manager while it is visible, find the process name, and add it here. |
+| Broadcast Stop Processes | `Broadcast, NvVirtual, NvAFX` | Comma-separated fragments used to find and kill all Broadcast-related processes when stopping. |
+| OBS Stop Processes | `obs` | Comma-separated fragments used to find and kill OBS when stopping. |
 
 ### Behaviour
 
